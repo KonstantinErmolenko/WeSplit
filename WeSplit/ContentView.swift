@@ -9,11 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var checkAmount = ""
+    @State private var checkAmount    = ""
     @State private var numberOfPeople = 2
-    @State private var tipPercentage = 2
+    @State private var tipPercentage  = 2
     
     let tipPercentages = [10, 15, 20, 25, 0]
+    
+    var totalPerPerson: Double {
+        let peopleCount  = Double(numberOfPeople + 2)
+        let tipSelection = Double(tipPercentages[tipPercentage])
+        let orderAmount  = Double(checkAmount) ?? 0
+        
+        let tipValue        = orderAmount * tipSelection / 100
+        let grandAmound     = orderAmount + tipValue
+        let amountPerPerson = grandAmound / peopleCount
+        
+        return amountPerPerson
+    }
 
     var body: some View {
         NavigationView {
